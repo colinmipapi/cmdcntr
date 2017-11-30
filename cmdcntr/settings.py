@@ -1,5 +1,4 @@
 import os
-from configurations import Configuration, values
 from .secret_settings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
