@@ -39,11 +39,11 @@ def ring_in(request):
 
 
 @csrf_exempt
-def handle_key():
+def handle_key(request):
     """Handle key press from a user."""
 
     # Get the digit pressed by the user
-    digit_pressed = request.values.get('Digits', None)
+    digit_pressed = request.POST.get('Digits', '')
     if digit_pressed == "1":
         resp = VoiceResponse()
 
