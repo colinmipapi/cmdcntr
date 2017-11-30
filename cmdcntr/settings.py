@@ -14,7 +14,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cmdcntr-dev.us-east-1.elasticbeanstalk.com','127.0.0.1:8000','colinmcfaul.com']
+ALLOWED_HOSTS = ['cmdcntr-dev.us-east-1.elasticbeanstalk.com','127.0.0.1','colinmcfaul.com']
 
 
 # Application definition
@@ -121,7 +121,9 @@ USE_TZ = True
 STATIC_ROOT = os.path.join(BASE_DIR, "www", "static")
 STATIC_URL = '/static/'
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 
-AUTH_USER_MODEL = 'base.User'
+AUTH_USER_MODEL = 'base.MyUser'
 ACCOUNT_ACTIVATION_DAYS = 7
