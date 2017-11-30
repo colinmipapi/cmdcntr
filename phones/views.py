@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
@@ -42,13 +42,11 @@ def ring_in(request):
 def handle_key(request):
     """Handle key press from a user."""
 
-    resp = VoiceResponse()
-
     # Get the digit pressed by the user
     digit_pressed = request.POST.get('Digits', '')
     if digit_pressed == "1":
 
-
+        resp = VoiceResponse()
         resp.dial("+15166407250")
         # If the dial fails:
         resp.say("The call failed, or the remote party hung up. Goodbye.")
@@ -57,5 +55,4 @@ def handle_key(request):
 
     else:
 
-        resp.say("The call failed, or the remote party hung up. Goodbye.")
-        return HttpResponse(str(resp))
+        return redirect('index')
