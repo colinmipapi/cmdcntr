@@ -31,7 +31,7 @@ def ring_in(request):
     resp = VoiceResponse()
     resp.say("Hey there")
     #resp.play()
-    g = Gather(num_digits=1, action="/phone/ring/handle_key/", method="POST")
+    g = Gather(num_digits=1, action="/phone/ring/handle_key", method="POST")
     g.say("To give me a call, press 1. Press any other key to start over.")
     resp.append(g)
 
@@ -50,8 +50,6 @@ def handle_key(request):
         dial = Dial()
         dial.number('516-640-7250')
         response.append(dial)
-        # If the dial fails:
-        resp.say("The call failed, or the remote party hung up. Goodbye.")
 
         return HttpResponse(str(resp))
 
