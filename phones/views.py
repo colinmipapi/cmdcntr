@@ -52,7 +52,3 @@ def handle_key(request):
         response.append(dial)
 
         return HttpResponse(str(resp))
-
-    else:
-
-        return redirect('ring_in')
