@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     url(r'^sms_response/$', views.sms_response, name="sms_response"),
-    url(r'^ring/in/$', views.ring_in, name="ring_in"),
+    url(r'^ring/$', views.ring_in, name="ring_in"),
     url(r'^ring/handle_key/$', views.handle_key, name="handle_key"),
 ]
