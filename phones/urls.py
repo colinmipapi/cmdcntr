@@ -1,6 +1,7 @@
 from django.conf.urls import include, url
+from . import views
 
 urlpatterns = [
-    url(r'^sms/$', phones.views.sms, name="sms"),
-    url(r'^ring/$', phones.views.ring, name="ring"),
+    url(r'^sms/$', views.sms, name="sms"),
+    url(r'^ring/$', views.ring, name="ring"),
 ]
