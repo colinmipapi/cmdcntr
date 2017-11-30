@@ -49,6 +49,6 @@ def handle_key(request):
         resp = VoiceResponse()
         dial = Dial()
         dial.number('516-640-7250')
-        response.append(dial)
+        resp.append(dial)
 
         return HttpResponse(str(resp))
