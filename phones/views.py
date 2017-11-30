@@ -15,7 +15,7 @@ def sms(request):
     return r
 
 @twilio_view
-def incoming_call(request):
+def ring(request):
 
     from_number = request.values.get('From', None)
 
