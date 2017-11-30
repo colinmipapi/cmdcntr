@@ -31,7 +31,7 @@ def ring_in(request):
     resp = VoiceResponse()
     resp.say("Hey there")
     #resp.play()
-    g = Gather(numDigits=1, action="/handle-key", method="POST")
+    g = Gather(numDigits=1, action="phone/handle-key", method="POST")
     g.say("To give me a call, press 1. Press any other key to start over.")
     resp.append(g)
 
