@@ -8,6 +8,7 @@ from django.contrib.auth.views import (
 )
 
 urlpatterns = [
+    url(r'^phone/', include('phone.urls')),
     url(r'^', include('base.urls')),
     url(r'^accounts/password/reset/$',
         password_reset,
