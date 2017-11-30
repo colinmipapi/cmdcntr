@@ -3,7 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
 from twilio.twiml.messaging_response import MessagingResponse
-from twilio.twiml.voice_response import Gather, VoiceResponse, Say
+from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial
 
 def load_twilio_config():
     twilio_account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
@@ -47,7 +47,9 @@ def handle_key(request):
     if digit_pressed == "1":
 
         resp = VoiceResponse()
-        resp.dial("+15166407250")
+        dial = Dial()
+        dial.number('516-640-7250')
+        response.append(dial)
         # If the dial fails:
         resp.say("The call failed, or the remote party hung up. Goodbye.")
 
