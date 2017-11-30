@@ -57,4 +57,4 @@ def handle_key(request):
 
     else:
 
-        return redirect('index')
+        return redirect('ring_in')
