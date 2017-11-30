@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body, html {
+   height: 100%;
+}
+
+#li-background {
+  background: url('/static/base/media/li_sound.JPG') no-repeat fixed;
+  background-size: cover;
+  background-position: 0;
+  height: 100%;
+}
+
+#homepage-center {
+  display: flex;
+  height: 100%
+}
+
+.landing-container {
+  position: relative;
+  height: 100%;
+}
+
+.landing-jumbotron {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.landing-text {
+  font-size: 70pt;
+  font-family: Raleway;
+  color: #4990E2;
+}

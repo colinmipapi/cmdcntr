@@ -4,14 +4,20 @@
   <head>
     <title>
       {% block title %}
-        **Change This**
+        Colin McFaul
       {% endblock title %}
     </title>
     <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     {% block header %}{% endblock header %}
   </head>
   <body>
     <header>
+    <!-- to add nav bar
     <nav>
       <ul>
         <li><a href="{% url 'index' %}">Home</a></li>
@@ -29,6 +35,7 @@
         {% endif %}
       </ul>
     </nav>
+  -->
   </header>
     {% block content %}{% endblock content %}
     {% block footer %}{% endblock footer %}
