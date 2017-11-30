@@ -14,7 +14,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cmdcntr.us-east-1.elasticbeanstalk.com','127.0.0.1','colinmcfaul.com']
+ALLOWED_HOSTS = ['cmdcntr.us-east-1.elasticbeanstalk.com','127.0.0.1','www.colinmcfaul.com']
 
 
 # Application definition
