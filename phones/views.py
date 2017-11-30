@@ -37,7 +37,7 @@ def ring_in(request):
         g.say("To give me a call, press 1. Press any other key to start over.")
         resp.append(g)
 
-        return str(resp)
+        return HttpResponse(str(resp))
 
     else:
 
