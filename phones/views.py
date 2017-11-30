@@ -32,7 +32,7 @@ def ring_in(request):
     resp.say("Hey there")
     #resp.play()
     g = Gather(num_digits=1, action="/phone/ring/handle_key/", method="POST")
-    g.say("To give me a call, press 1. Press any other key to start over.")
+    g.say("Thanks for calling Colin, press 1 to give him a call, press 2 to leave a voicemail, and press any other key to start over.")
     resp.append(g)
 
     return HttpResponse(str(resp))
@@ -52,3 +52,21 @@ def handle_key(request):
         resp.append(dial)
 
         return HttpResponse(str(resp))
+
+    elif digit_pressed == "2":
+
+        resp = VoiceResponse()
+        resp.say("Record your monkey howl after the tone.")
+        resp.record(maxLength="30", action="/phone/ring/handle_recording/")
+        return HttpResponse(str(resp))
+
+@csrf_exempt
+def handle_recording(request):
+
+    recording_url = request.values.get("RecordingUrl", None)
+
+    resp = VoiceResponse()
+    resp.say("Thanks for leaving a message... take a listen to what you said.")
+    resp.play(recording_url)
+    resp.say("Goodbye.")
+    return HttpResponse(str(resp))
