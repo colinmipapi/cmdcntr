@@ -43,7 +43,7 @@ def handle_key(request):
     """Handle key press from a user."""
 
     # Get the digit pressed by the user
-    digit_pressed = request.POST.get('Digits', '')
+    digit_pressed = request.POST['Digits']
     if digit_pressed == "1":
 
         resp = VoiceResponse()
