@@ -26,22 +26,17 @@ def sms_response(request,msg):
 @csrf_exempt
 def ring_in(request):
 
-    if request.method == 'POST':
+    from_number = request.POST.get('From', '')
 
-        from_number = request.POST.get('From', None)
+    resp = VoiceResponse()
+    resp.say("Hey there")
+    #resp.play()
+    g = Gather(numDigits=1, action="/handle-key", method="POST")
+    g.say("To give me a call, press 1. Press any other key to start over.")
+    resp.append(g)
 
-        resp = VoiceResponse()
-        resp.say("Hey there")
-        #resp.play()
-        g = Gather(numDigits=1, action="/handle-key", method="POST")
-        g.say("To give me a call, press 1. Press any other key to start over.")
-        resp.append(g)
+    return HttpResponse(str(resp))
 
-        return HttpResponse(str(resp))
-
-    else:
-
-        return HttpResponse('No Post')
 
 @csrf_exempt
 def handle_key():
@@ -56,4 +51,4 @@ def handle_key():
         # If the dial fails:
         resp.say("The call failed, or the remote party hung up. Goodbye.")
 
-        return str(resp)
+        return HttpResponse(str(resp))
