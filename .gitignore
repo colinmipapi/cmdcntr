@@ -1,4 +1,4 @@
-cmdcntr/secret_settings.py
+#cmdcntr/secret_settings.py
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
