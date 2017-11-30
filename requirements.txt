@@ -3,5 +3,6 @@ Django==1.11.6
 django-configurations==2.0
 django-jquery==3.1.0
 django-registration-redux==1.8
+psycopg2==2.7.3.2
 pytz==2017.2
 waitress==1.1.0
