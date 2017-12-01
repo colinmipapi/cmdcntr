@@ -1,38 +1,12 @@
-from twilio.twiml.voice_response import VoiceResponse
-#from contacts.models import Contact
+from twilio.jwt.client import ClientCapabilityToken
 
-@app.route("/", methods=['GET', 'POST'])
-def incoming_call():
+def load_twilio_config():
+    twilio_account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+    twilio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+    twilio_number = os.environ.get('TWILIO_NUMBER')
 
-    from_number = request.values.get('From', None)
+    if not all([twilio_account_sid, twilio_auth_token, twilio_number]):
+        logger.error(NOT_CONFIGURED_MESSAGE)
+        raise MiddlewareNotUsed
 
-    resp = VoiceResponse()
-    resp.say("Hey there")
-    #resp.play()
-    g = Gather(numDigits=1, action="/handle-key", method="POST")
-    g.say("To give me a call, press 1. Press any other key to start over.")
-    resp.append(g)
-
-    return str(resp)
-
-@app.route("/handle-key", methods=['GET', 'POST'])
-def handle_key():
-    """Handle key press from a user."""
-
-    # Get the digit pressed by the user
-    digit_pressed = request.values.get('Digits', None)
-    if digit_pressed == "1":
-        resp = VoiceResponse()
-
-        resp.dial("+15166407250")
-        # If the dial fails:
-        resp.say("The call failed, or the remote party hung up. Goodbye.")
-
-        return str(resp)
-
-    # If the caller pressed anything but 1, redirect them to the homepage.
-    else:
-        return redirect("/")
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return (twilio_number, twilio_account_sid, twilio_auth_token)

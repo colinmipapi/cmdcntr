@@ -27,8 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registration',
+    'phonenumber_field',
     'base.apps.BaseConfig',
-    'contacts.apps.ContactsConfig',
     'phones.apps.PhonesConfig',
 ]
 

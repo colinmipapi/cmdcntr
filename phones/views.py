@@ -1,21 +1,12 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from .models import PhoneNumber, Message, Call
+
+from .run import load_twilio_config
 
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial
-
-def load_twilio_config():
-    twilio_account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
-    twilio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
-    twilio_number = os.environ.get('TWILIO_NUMBER')
-
-    if not all([twilio_account_sid, twilio_auth_token, twilio_number]):
-        logger.error(NOT_CONFIGURED_MESSAGE)
-        raise MiddlewareNotUsed
-
-    return (twilio_number, twilio_account_sid, twilio_auth_token)
-
 
 @csrf_exempt
 def sms_response(request,msg):
@@ -29,7 +20,13 @@ def ring_in(request):
     from_number = request.POST.get('From', '')
 
     resp = VoiceResponse()
-    resp.say("Hey there")
+
+    try:
+        phone_object = PhoneNumber.objects.get(phone=from_number)
+        first_name = phone_object.user.first_name
+        resp.say("Hey %s" % first_name)
+    except:
+        resp.say("Hey there")
     #resp.play()
     g = Gather(num_digits=1, action="/phone/ring/handle_key/", method="POST")
     g.say("Thanks for calling Colin... press 1 to give him a call... press 2 to leave a voicemail... and press any other key to start over.")
