@@ -24,9 +24,13 @@ def ring_in(request):
     try:
         phone_object = PhoneNumber.objects.get(phone=from_number)
         first_name = phone_object.user.first_name
-        resp.say("Hey %s" % first_name)
+
+        if first_name != None:
+            resp.say("Hey %s..." % first_name)
+        else:
+            resp.say("Hey there...")
     except:
-        resp.say("Hey there")
+        resp.say("Hey there...")
     #resp.play()
     g = Gather(num_digits=1, action="/phone/ring/handle_key/", method="POST")
     g.say("Thanks for calling Colin... press 1 to give him a call... press 2 to leave a voicemail... and press any other key to start over.")
