@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import PhoneNumber, Message, Call
 
 from .run import load_twilio_config
+from .backends import create_in_call
 
 from twilio.twiml.messaging_response import MessagingResponse
 from twilio.twiml.voice_response import Gather, VoiceResponse, Say, Dial
@@ -21,20 +22,36 @@ def ring_in(request):
 
     resp = VoiceResponse()
 
-    try:
-        phone_object = PhoneNumber.objects.get(phone=from_number)
-        first_name = phone_object.user.first_name
+    from_phone_object = PhoneNumber.objects.get_or_create(phone=from_number)
+
+    if from_phone_object[1] == False:
+
+        from_user = from_phone_object[0].user
+        first_name = from_user.first_name
 
         if first_name != None:
             resp.say("Hey %s..." % first_name)
         else:
             resp.say("Hey there...")
-    except:
+
+    else:
+
+        from_user = MyUser(username="from_number",active=True)
+        from_user.active = True
+        from_user.save()
+
+        from_phone_object[0].user = from_user
+
         resp.say("Hey there...")
+
     #resp.play()
     g = Gather(num_digits=1, action="/phone/ring/handle_key/", method="POST")
     g.say("Thanks for calling Colin... press 1 to give him a call... press 2 to leave a voicemail... and press any other key to start over.")
     resp.append(g)
+
+    to_user = MyUser.objects.get(username="colin",first_name="Colin",last_name="McFaul")
+
+    create_in_call(from_user,to_user)
 
     return HttpResponse(str(resp))
 

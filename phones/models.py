@@ -8,6 +8,7 @@ class PhoneNumber(models.Model):
         ("0", "Cell"),
         ("1", "Office"),
         ("2", "Home"),
+        ("3", "Plivo"),
     )
 
     user = models.ForeignKey('base.MyUser', related_name='p_user')
@@ -22,11 +23,11 @@ class PhoneNumber(models.Model):
 class Message(models.Model):
 
     sent_from = models.ForeignKey('base.MyUser', related_name='from_sms')
-    sent_to = models.ForeignKey('base.MyUser',  related_name='to_sms')
+    sent_to = models.ManyToManyField('base.MyUser',  related_name='to_sms')
     text_body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
 class Call(models.Model):
 
     sent_from = models.ForeignKey('base.MyUser', related_name='from_call')
-    sent_to = models.ForeignKey('base.MyUser', related_name='to_call')
+    sent_to = models.ManyToManyField('base.MyUser', related_name='to_call')
